@@ -9,7 +9,7 @@ import numpy as np
 from collections import Counter
 import base64
 import cv2
-import random
+
 
 app = FastAPI()
 
@@ -34,7 +34,7 @@ hands_sentences = mp_hands.Hands(
     min_tracking_confidence=0.3
 )
 
-letters = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
@@ -43,8 +43,7 @@ async def websocket_endpoint(websocket: WebSocket):
     print("WebSocket /ws accepted")
     prediction_history = []
     history_size = 20
-    score = 0
-    target_letter = random.choice(letters)
+    
 
     try:
         while True:
@@ -82,17 +81,11 @@ async def websocket_endpoint(websocket: WebSocket):
 
                     prediction = Counter(prediction_history).most_common(1)[0][0]
 
-                    # Check if correct
-                    correct = prediction == target_letter
-                    if correct:
-                        score += 1
-                        target_letter = random.choice(letters)
+                    
 
-            await websocket.send_json({
+        await websocket.send_json({
     "prediction": prediction if results.multi_hand_landmarks else None,
     "confidence": confidence,
-    "target": target_letter,
-    "score": score,
     "hand_detected": results.multi_hand_landmarks is not None
 })
 
