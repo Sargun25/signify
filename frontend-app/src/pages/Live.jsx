@@ -101,7 +101,7 @@ const startCamera = () => {
     setCameraStarted(true);
 
     
-    const ws = new WebSocket("ws://localhost:8000/ws");
+    const ws = new WebSocket("ws://signify-gwci.onrender.com/ws");
     wsRef.current = ws;
 
 ws.onmessage = (event) => {
