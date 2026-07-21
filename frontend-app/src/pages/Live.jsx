@@ -104,6 +104,7 @@ const startCamera = () => {
 const socket = new WebSocket(
   `wss://signify-gwci.onrender.com/ws?target=${currentSignRef.current.label}`
 );
+wsRef.current = socket;
 
 socket.onopen = () => {
   console.log("CONNECTED TO BACKEND");
@@ -149,10 +150,10 @@ socket.onmessage = (event) => {
       canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
       const base64 = canvas.toDataURL("image/jpeg", 0.7);
       if (base64 === "data:,") return;
-      ws.send(base64);
+      socket.send(base64);
     }, 100);
 
-    ws.onclose = () => clearInterval(interval);
+    socket.onclose = () => clearInterval(interval);
   });
 };
 
