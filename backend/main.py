@@ -15,7 +15,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://signify-lovat.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,7 +38,9 @@ letters = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+    print("WebSocket /ws connection attempt")
     await websocket.accept()
+    print("WebSocket /ws accepted")
     prediction_history = []
     history_size = 20
     score = 0
@@ -91,8 +96,9 @@ async def websocket_endpoint(websocket: WebSocket):
     "hand_detected": results.multi_hand_landmarks is not None
 })
 
-    except Exception as e:
-        print(f"Connection closed: {e}")
+    except Exception:
+        import traceback
+        traceback.print_exc()
 @app.websocket("/ws/sentence")
 async def sentence_websocket(websocket: WebSocket):
     await websocket.accept()
@@ -138,6 +144,6 @@ async def sentence_websocket(websocket: WebSocket):
                 "confidence": confidence,
                 "hand_detected": results.multi_hand_landmarks is not None
             })
-
-    except Exception as e:
-        print(f"Connection closed: {e}")       
+    except Exception:
+        import traceback
+        traceback.print_exc()      
