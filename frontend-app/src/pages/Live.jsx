@@ -118,6 +118,7 @@ ws.onerror = (err) => {
 
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
+  console.log("BACKEND RESPONSE:", data);
   setPrediction(data.prediction);
   setConfidence(data.confidence);
   setHandDetected(data.hand_detected);
