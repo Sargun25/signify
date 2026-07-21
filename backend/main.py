@@ -83,11 +83,11 @@ async def websocket_endpoint(websocket: WebSocket):
 
                     
 
-        await websocket.send_json({
-    "prediction": prediction if results.multi_hand_landmarks else None,
-    "confidence": confidence,
-    "hand_detected": results.multi_hand_landmarks is not None
-})
+            await websocket.send_json({
+                "prediction": prediction if results.multi_hand_landmarks else None,
+                "confidence": confidence,
+                "hand_detected": results.multi_hand_landmarks is not None
+            })
 
     except Exception:
         import traceback
