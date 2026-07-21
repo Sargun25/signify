@@ -102,7 +102,19 @@ const startCamera = () => {
 
     
     const ws = new WebSocket("wss://signify-gwci.onrender.com/ws");
-    wsRef.current = ws;
+wsRef.current = ws;
+
+ws.onopen = () => {
+  console.log("CONNECTED TO BACKEND");
+};
+
+ws.onclose = () => {
+  console.log("BACKEND CLOSED SOCKET");
+};
+
+ws.onerror = (err) => {
+  console.log("WEBSOCKET ERROR", err);
+};
 
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
