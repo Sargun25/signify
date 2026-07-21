@@ -1,6 +1,9 @@
 from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 import mediapipe as mp
+print("MediaPipe version:", getattr(mp, "__version__", "No version"))
+print("MediaPipe file:", getattr(mp, "__file__", "No file"))
+print("Has solutions:", hasattr(mp, "solutions"))
 import pickle
 import numpy as np
 from collections import Counter
