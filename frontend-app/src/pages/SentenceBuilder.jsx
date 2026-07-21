@@ -33,10 +33,11 @@ function SentenceBuilder() {
       }
       setCameraStarted(true);
 
-      const ws = new WebSocket("wss://signify-gwci.onrender.com/ws/sentence");
-      wsRef.current = ws;
+      const socket = new WebSocket(
+  `wss://signify-gwci.onrender.com/ws?target=${targetLetter}`
+);
 
-      ws.onmessage = (event) => {
+      socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         setHandDetected(data.hand_detected);
         setConfidence(data.confidence);

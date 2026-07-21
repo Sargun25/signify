@@ -39,8 +39,13 @@ hands_sentences = mp_hands.Hands(
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     print("WebSocket /ws connection attempt")
+
+    target_letter = websocket.query_params.get("target")
+
     await websocket.accept()
-    print("WebSocket /ws accepted")
+
+    print("Target received:", target_letter)
+
     prediction_history = []
     history_size = 20
     
@@ -63,6 +68,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
             prediction = None
             confidence = 0
+            correct = False
 
             if results.multi_hand_landmarks:
                 for hand_landmarks in results.multi_hand_landmarks:
@@ -81,11 +87,13 @@ async def websocket_endpoint(websocket: WebSocket):
 
                     prediction = Counter(prediction_history).most_common(1)[0][0]
 
-                    
+                  
 
             await websocket.send_json({
                 "prediction": prediction if results.multi_hand_landmarks else None,
                 "confidence": confidence,
+                "target": target_letter,
+                "correct": correct,
                 "hand_detected": results.multi_hand_landmarks is not None
             })
 
@@ -131,10 +139,15 @@ async def sentence_websocket(websocket: WebSocket):
                         prediction_history.pop(0)
 
                     prediction = Counter(prediction_history).most_common(1)[0][0]
+                    if target_letter:
+                        correct = prediction == target_letter
 
             await websocket.send_json({
                 "prediction": prediction if results.multi_hand_landmarks else None,
                 "confidence": confidence,
+                "target": target_letter,
+                "correct": correct,
+
                 "hand_detected": results.multi_hand_landmarks is not None
             })
     except Exception:

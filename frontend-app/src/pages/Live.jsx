@@ -101,22 +101,23 @@ const startCamera = () => {
     setCameraStarted(true);
 
     
-    const ws = new WebSocket("wss://signify-gwci.onrender.com/ws");
-wsRef.current = ws;
+const socket = new WebSocket(
+  `wss://signify-gwci.onrender.com/ws?target=${currentSignRef.current.label}`
+);
 
-ws.onopen = () => {
+socket.onopen = () => {
   console.log("CONNECTED TO BACKEND");
 };
 
-ws.onclose = () => {
+socket.onclose = () => {
   console.log("BACKEND CLOSED SOCKET");
 };
 
-ws.onerror = (err) => {
+socket.onerror = (err) => {
   console.log("WEBSOCKET ERROR", err);
 };
 
-ws.onmessage = (event) => {
+socket.onmessage = (event) => {
   const data = JSON.parse(event.data);
   console.log("BACKEND RESPONSE:", data);
   setPrediction(data.prediction);
@@ -140,7 +141,7 @@ ws.onmessage = (event) => {
   }
 };
     const interval = setInterval(() => {
-      if (!canvasRef.current || !videoRef.current || ws.readyState !== WebSocket.OPEN) return;
+      if (!canvasRef.current || !videoRef.current || socket.readyState !== WebSocket.OPEN) return;
       if (videoRef.current.videoWidth === 0 || videoRef.current.videoHeight === 0) return;
       const canvas = canvasRef.current;
       canvas.width = videoRef.current.videoWidth;
