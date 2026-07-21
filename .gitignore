@@ -141,3 +141,18 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+data/asl_landmarks.csv
+
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Dataset files
+data/dataset/
+
+# Model files (optional - only if model is too large)
+# *.pkl
