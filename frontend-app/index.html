@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Bricolage+Grotesque:wght@600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      .paper-shadow { box-shadow: 0 4px 0 0 rgba(27, 28, 28, 0.1); }
+      .grain-texture { background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
+      @keyframes mascot-sway {
+        0%, 100% { transform: translateX(0) rotate(0deg); }
+        25% { transform: translateX(15px) rotate(2deg); }
+        75% { transform: translateX(-15px) rotate(-2deg); }
+      }
+      .animate-mascot-sway { animation: mascot-sway 4s ease-in-out infinite; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

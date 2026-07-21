@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#d9e9b6",
+                        "secondary-container": "#ebe1d8",
+                        "surface-dim": "#dcd9d9",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#141f01",
+                        "inverse-on-surface": "#f3f0f0",
+                        "primary": "#56633b",
+                        "inverse-surface": "#303030",
+                        "tertiary": "#7d525f",
+                        "on-tertiary-fixed-variant": "#623b47",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#bdcd9c",
+                        "primary-container": "#8c9b6e",
+                        "on-tertiary-fixed": "#30111c",
+                        "on-secondary-fixed": "#1f1b16",
+                        "surface-container-highest": "#e4e2e1",
+                        "secondary": "#645d56",
+                        "background": "#fcf9f8",
+                        "outline-variant": "#c6c8ba",
+                        "on-surface-variant": "#45483e",
+                        "tertiary-fixed-dim": "#eeb8c7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#3e4b26",
+                        "tertiary-fixed": "#ffd9e2",
+                        "on-secondary-fixed-variant": "#4c463f",
+                        "secondary-fixed": "#ebe1d8",
+                        "on-tertiary-container": "#46232e",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#cec5bc",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e4e2e1",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "outline": "#76786d",
+                        "surface-container": "#f0eded",
+                        "on-background": "#1b1c1c",
+                        "inverse-primary": "#bdcd9c",
+                        "on-secondary-container": "#6a635c",
+                        "tertiary-container": "#b98896",
+                        "on-surface": "#1b1c1c",
+                        "surface-tint": "#56633b",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#26320f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem",
+                        "eight": "8px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "card-padding": "24px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Bricolage Grotesque"],
+                        "headline-lg": ["Bricolage Grotesque"],
+                        "label-sm": ["Quicksand"],
+                        "title-md": ["Quicksand"],
+                        "body-md": ["Quicksand"],
+                        "headline-lg-mobile": ["Bricolage Grotesque"],
+                        "body-lg": ["Quicksand"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .paper-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(40, 23, 26, 1);
+        }
+        .paper-shadow-sm {
+            box-shadow: 2px 2px 0px 0px rgba(40, 23, 26, 1);
+        }
+        .bg-pattern-tile {
+            background-image: radial-gradient(#c6c8ba 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+        .active-scale:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top AppBar (Suppressed SideNav/BottomNav for focused Settings screen) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-surface border-b-[3px] border-on-surface shadow-[6px_6px_0px_0px_rgba(40,23,26,1)]">
+<div class="flex items-center gap-4">
+<button aria-label="Back" class="active-scale p-2 rounded-eight hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary italic uppercase tracking-tighter">Settings</h1>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="favorite">favorite</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="workspace_premium">workspace_premium</span>
+</div>
+</header>
+<main class="mt-28 px-margin-mobile pb-12 space-y-gutter bg-pattern-tile min-h-screen">
+<!-- Profile Section -->
+<section class="bg-surface border-[2.5px] border-on-surface rounded-eight p-card-padding paper-shadow flex flex-col items-center text-center">
+<div class="relative w-24 h-24 mb-4 bg-primary-fixed-dim rounded-full border-[2.5px] border-on-surface overflow-hidden">
+<img alt="User profile" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLuJj2Fl3rqUFJimh3Jx8hZe6eXeGjarFZi5geTVT-LBcJPXzPrvOIJ6Ts3rgPTM_WLI9jLZG9tqBJleP5cZWQx5Jsmar8FWdQRj8B7DHdST8KpqdImgOmY_8K_kG733zoJb57CseGpxC6pvAfWFWApDWLPGxYBVeENpbfOyHdrLvK0W2IWTqpaTy_TRi1ny_Ps78O1ZSh96JcMbpkT8AFgPuJKOKFaXg4YfW8QrrazbOwmHIfdv1PDccg"/>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Alex Chen</h2>
+<p class="text-on-surface-variant mb-6 font-label-sm text-label-sm">alex.signer@archive.edu</p>
+<button class="w-full py-3 bg-secondary-fixed text-on-secondary-fixed border-[2.5px] border-on-surface rounded-eight font-title-md text-title-md paper-shadow-sm active-scale transition-all hover:-translate-y-0.5">
+                Edit Profile
+            </button>
+</section>
+<!-- Section 1: Account -->
+<section class="space-y-4">
+<h3 class="font-title-md text-title-md text-primary ml-2 uppercase tracking-widest text-[14px]">Account</h3>
+<div class="bg-surface border-[2px] border-on-surface rounded-eight overflow-hidden paper-shadow-sm">
+<div class="flex items-center justify-between p-4 border-b-[2px] border-surface-container hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="lock">lock</span>
+<span class="font-body-md text-body-md">Password</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="visibility_off">visibility_off</span>
+<span class="font-body-md text-body-md">Privacy</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Section 2: Notifications -->
+<section class="space-y-4">
+<h3 class="font-title-md text-title-md text-primary ml-2 uppercase tracking-widest text-[14px]">Notifications</h3>
+<div class="bg-surface border-[2px] border-on-surface rounded-eight overflow-hidden paper-shadow-sm">
+<div class="flex items-center justify-between p-4 border-b-[2px] border-surface-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="alarm">alarm</span>
+<span class="font-body-md text-body-md">Daily Reminder</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-container-highest border-[2px] border-on-surface rounded-full peer peer-checked:after:translate-x-6 peer-checked:bg-primary-container after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-on-surface after:border-[1px] after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="stars">stars</span>
+<span class="font-body-md text-body-md">Milestone Alerts</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-container-highest border-[2px] border-on-surface rounded-full peer peer-checked:after:translate-x-6 peer-checked:bg-primary-container after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-on-surface after:border-[1px] after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section 3: Accessibility -->
+<section class="space-y-4">
+<h3 class="font-title-md text-title-md text-primary ml-2 uppercase tracking-widest text-[14px]">Accessibility</h3>
+<div class="bg-surface border-[2px] border-on-surface rounded-eight p-4 paper-shadow-sm space-y-6">
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="text_fields">text_fields</span>
+<span class="font-body-md text-body-md">Font Size</span>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-container px-2 rounded-eight">Medium</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary border-[1px] border-on-surface" max="3" min="1" type="range" value="2"/>
+<div class="flex justify-between text-[10px] uppercase font-bold text-outline-variant">
+<span>Small</span>
+<span>Large</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="contrast">contrast</span>
+<span class="font-body-md text-body-md">High Contrast</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-container-highest border-[2px] border-on-surface rounded-full peer peer-checked:after:translate-x-6 peer-checked:bg-primary-container after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-on-surface after:border-[1px] after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section 4: Theme -->
+<section class="space-y-4">
+<h3 class="font-title-md text-title-md text-primary ml-2 uppercase tracking-widest text-[14px]">Display</h3>
+<div class="bg-surface border-[2px] border-on-surface rounded-eight p-4 paper-shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="palette">palette</span>
+<span class="font-body-md text-body-md">Dark Mode</span>
+</div>
+<div class="flex p-1 bg-surface-container rounded-eight border-[2px] border-on-surface">
+<button class="px-4 py-1 rounded-eight bg-primary text-white font-bold text-[12px] transition-all" id="light-toggle" onclick="setTheme('light')">LIGHT</button>
+<button class="px-4 py-1 rounded-eight text-on-surface-variant font-bold text-[12px] transition-all" id="dark-toggle" onclick="setTheme('dark')">DARK</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer: Logout -->
+<footer class="pt-8 flex flex-col items-center gap-6">
+<button class="w-full py-4 bg-tertiary-fixed text-on-tertiary-container border-[3px] border-on-surface rounded-eight font-title-md text-title-md paper-shadow active-scale transition-transform">
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                    LOGOUT
+                </div>
+</button>
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-outline">Signify ASL v2.4.0</p>
+<p class="font-label-sm text-label-sm text-outline-variant italic">Keeping your progress safe &amp; scholarly</p>
+</div>
+</footer>
+</main>
+<script>
+        function setTheme(mode) {
+            const html = document.documentElement;
+            const lightBtn = document.getElementById('light-toggle');
+            const darkBtn = document.getElementById('dark-toggle');
+
+            if (mode === 'dark') {
+                html.classList.add('dark');
+                darkBtn.classList.add('bg-primary', 'text-white');
+                darkBtn.classList.remove('text-on-surface-variant');
+                lightBtn.classList.remove('bg-primary', 'text-white');
+                lightBtn.classList.add('text-on-surface-variant');
+            } else {
+                html.classList.remove('dark');
+                lightBtn.classList.add('bg-primary', 'text-white');
+                lightBtn.classList.remove('text-on-surface-variant');
+                darkBtn.classList.remove('bg-primary', 'text-white');
+                darkBtn.classList.add('text-on-surface-variant');
+            }
+        }
+    </script>
+</body></html>

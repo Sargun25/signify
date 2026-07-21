@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Signify - Your Progress Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .paper-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+        .archive-tab {
+            clip-path: polygon(0% 0%, 80% 0%, 100% 100%, 0% 100%);
+        }
+        .streak-dot-active {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Custom scrollbar for archive feel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f6f3f2; }
+        ::-webkit-scrollbar-thumb { background: #c6c8ba; border-radius: 4px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#eae7e7",
+                      "surface-bright": "#fcf9f8",
+                      "on-background": "#1b1c1c",
+                      "error": "#ba1a1a",
+                      "on-surface": "#1b1c1c",
+                      "secondary-container": "#ebe1d8",
+                      "inverse-surface": "#303030",
+                      "on-tertiary-fixed-variant": "#623b47",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c8ba",
+                      "on-tertiary-container": "#46232e",
+                      "on-primary-container": "#26320f",
+                      "on-secondary-fixed": "#1f1b16",
+                      "tertiary-fixed-dim": "#eeb8c7",
+                      "on-primary-fixed": "#141f01",
+                      "surface-dim": "#dcd9d9",
+                      "primary-fixed": "#d9e9b6",
+                      "surface-container-highest": "#e4e2e1",
+                      "on-surface-variant": "#45483e",
+                      "on-secondary-fixed-variant": "#4c463f",
+                      "surface-container": "#f0eded",
+                      "secondary-fixed-dim": "#cec5bc",
+                      "secondary-fixed": "#ebe1d8",
+                      "surface": "#fcf9f8",
+                      "on-tertiary-fixed": "#30111c",
+                      "tertiary-container": "#b98896",
+                      "on-secondary-container": "#6a635c",
+                      "inverse-on-surface": "#f3f0f0",
+                      "outline": "#76786d",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#645d56",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#8c9b6e",
+                      "surface-variant": "#e4e2e1",
+                      "on-error": "#ffffff",
+                      "background": "#fcf9f8",
+                      "tertiary": "#7d525f",
+                      "tertiary-fixed": "#ffd9e2",
+                      "surface-tint": "#56633b",
+                      "primary-fixed-dim": "#bdcd9c",
+                      "on-primary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#3e4b26",
+                      "surface-container-low": "#f6f3f2",
+                      "inverse-primary": "#bdcd9c",
+                      "primary": "#56633b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "card-padding": "24px",
+                      "gutter": "16px",
+                      "unit": "8px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Quicksand"],
+                      "headline-lg": ["Bricolage Grotesque"],
+                      "headline-lg-mobile": ["Bricolage Grotesque"],
+                      "title-md": ["Quicksand"],
+                      "display-lg": ["Bricolage Grotesque"],
+                      "body-md": ["Quicksand"],
+                      "body-lg": ["Quicksand"]
+              },
+              "fontSize": {
+                      "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background font-body-md text-on-surface paper-texture min-h-screen">
+<!-- Desktop Sidebar -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant py-8 gap-unit">
+<div class="px-6 mb-8">
+<h1 class="font-display-lg text-headline-lg text-primary tracking-tight">Signify</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Learn ASL Daily</p>
+</div>
+<nav class="flex-grow flex flex-col gap-2">
+<a class="flex items-center gap-unit text-on-surface-variant rounded-full px-4 py-3 mx-2 hover:bg-secondary-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-title-md text-title-md">Home</span>
+</a>
+<a class="flex items-center gap-unit text-on-surface-variant rounded-full px-4 py-3 mx-2 hover:bg-secondary-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-title-md text-title-md">Lessons</span>
+</a>
+<a class="flex items-center gap-unit text-on-surface-variant rounded-full px-4 py-3 mx-2 hover:bg-secondary-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-title-md text-title-md">Glossary</span>
+</a>
+<a class="flex items-center gap-unit bg-primary-container text-on-primary-container rounded-full px-4 py-3 mx-2 translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-title-md text-title-md">Practice</span>
+</a>
+<a class="flex items-center gap-unit text-on-surface-variant rounded-full px-4 py-3 mx-2 hover:bg-secondary-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-title-md text-title-md">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+
+<div class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-2 px-4 py-2 text-on-surface-variant font-label-sm hover:underline" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span> Help
+                </a>
+<a class="flex items-center gap-2 px-4 py-2 text-on-surface-variant font-label-sm hover:underline" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span> Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 px-margin-mobile md:px-margin-desktop py-8 pb-24 md:pb-8 max-w-6xl">
+<!-- Top App Bar (Mobile) -->
+<header class="flex justify-between items-center w-full mb-8 md:hidden">
+<h1 class="font-display-lg text-display-lg text-primary">Signify</h1>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
+<div class="w-8 h-8 rounded-full bg-outline-variant"></div>
+</div>
+</header>
+<!-- Header Hero: The Archive Tab -->
+<div class="relative mb-12">
+<div class="archive-tab bg-primary text-on-primary px-6 py-2 w-max rounded-t-lg -mb-[1px] relative z-10 border-t-2 border-x-2 border-on-surface-variant">
+<span class="font-headline-lg text-headline-lg-mobile md:text-headline-lg">Progress Dossier</span>
+</div>
+<div class="bg-surface-container-lowest border-2 border-on-surface-variant p-6 md:p-card-padding rounded-tr-xl rounded-b-xl shadow-[4px_4px_0px_0px_rgba(69,72,62,0.1)] flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-grow">
+<h2 class="font-title-md text-primary mb-2">Academic Standing</h2>
+<p class="font-body-lg text-on-surface-variant max-w-xl">Welcome back, Student. Your consistency in learning American Sign Language has been logged. Review your milestones and maintain your streaks below.</p>
+</div>
+<div class="flex gap-6 shrink-0">
+<div class="text-center bg-surface-container p-4 rounded-xl border border-outline-variant border-b-4 border-b-primary shadow-inner">
+<div class="flex items-center justify-center gap-1 text-primary mb-1">
+<span class="material-symbols-outlined" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-display-lg text-2xl">14</span>
+</div>
+<p class="font-label-sm text-xs opacity-60">DAY STREAK</p>
+</div>
+<div class="text-center bg-surface-container p-4 rounded-xl border border-outline-variant border-b-4 border-b-tertiary shadow-inner">
+<div class="flex items-center justify-center gap-1 text-tertiary mb-1">
+<span class="material-symbols-outlined" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-display-lg text-2xl">2.4k</span>
+</div>
+<p class="font-label-sm text-xs opacity-60">TOTAL XP</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- 1. Monthly Calendar Heatmap (Duolingo Style) -->
+<section class="md:col-span-8 bg-surface border border-outline-variant rounded-xl p-card-padding flex flex-col gap-4 relative overflow-hidden">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+                        Learning Rhythm
+                    </h3>
+<div class="flex gap-2">
+<span class="w-3 h-3 bg-surface-container-high rounded-sm"></span>
+<span class="w-3 h-3 bg-primary-fixed rounded-sm"></span>
+<span class="w-3 h-3 bg-primary-container rounded-sm"></span>
+<span class="w-3 h-3 bg-primary rounded-sm"></span>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-2 md:gap-3">
+<!-- Week Headers -->
+<div class="text-center font-label-sm text-[10px] text-on-surface-variant">M</div>
+<div class="text-center font-label-sm text-[10px] text-on-surface-variant">T</div>
+<div class="text-center font-label-sm text-[10px] text-on-surface-variant">W</div>
+<div class="text-center font-label-sm text-[10px] text-on-surface-variant">T</div>
+<div class="text-center font-label-sm text-[10px] text-on-surface-variant">F</div>
+<div class="text-center font-label-sm text-[10px] text-on-surface-variant">S</div>
+<div class="text-center font-label-sm text-[10px] text-on-surface-variant">S</div>
+<!-- Calendar Dots - Visual Representation -->
+<!-- Row 1 -->
+<div class="aspect-square bg-primary rounded-md streak-dot-active flex items-center justify-center text-[10px] text-on-primary">1</div>
+<div class="aspect-square bg-primary-container rounded-md flex items-center justify-center text-[10px] text-on-primary-container">2</div>
+<div class="aspect-square bg-surface-container-high rounded-md flex items-center justify-center text-[10px] text-on-surface-variant">3</div>
+<div class="aspect-square bg-primary-fixed rounded-md flex items-center justify-center text-[10px] text-on-primary-fixed">4</div>
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary">5</div>
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary">6</div>
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary">7</div>
+<!-- Row 2 -->
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary">8</div>
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary">9</div>
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary">10</div>
+<div class="aspect-square bg-primary-container rounded-md flex items-center justify-center text-[10px] text-on-primary-container">11</div>
+<div class="aspect-square bg-primary-fixed rounded-md flex items-center justify-center text-[10px] text-on-primary-fixed">12</div>
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary">13</div>
+<div class="aspect-square bg-primary rounded-md flex items-center justify-center text-[10px] text-on-primary border-2 border-tertiary">14</div>
+<!-- Row 3+ placeholders -->
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+<div class="aspect-square bg-surface-container-high rounded-md"></div>
+</div>
+<div class="mt-4 p-4 bg-secondary-container rounded-lg border-l-4 border-secondary flex items-center justify-between">
+<div>
+<p class="font-title-md text-sm text-on-secondary-container">Weekly Completion</p>
+<p class="font-label-sm text-xs opacity-70">You are in the top 15% of learners this week.</p>
+</div>
+<span class="font-display-lg text-xl text-secondary">88%</span>
+</div>
+</section>
+<!-- 2. Achievement Badges -->
+<section class="md:col-span-4 bg-surface border border-outline-variant rounded-xl p-card-padding flex flex-col gap-4">
+<h3 class="font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="military_tech">military_tech</span>
+                    Badges Earned
+                </h3>
+<div class="flex flex-wrap gap-4 justify-center py-4">
+<div class="group relative">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed border-2 border-secondary flex items-center justify-center text-secondary-fixed-dim hover:scale-110 transition-transform cursor-help">
+<span class="material-symbols-outlined text-3xl" data-icon="auto_awesome_motion" style="font-variation-settings: 'FILL' 1;">auto_awesome_motion</span>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary text-[8px] font-bold px-1 rounded">7d</div>
+</div>
+<div class="group relative">
+<div class="w-16 h-16 rounded-full bg-primary-fixed border-2 border-primary flex items-center justify-center text-primary-fixed-dim hover:scale-110 transition-transform cursor-help">
+<span class="material-symbols-outlined text-3xl" data-icon="menu_book" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary text-[8px] font-bold px-1 rounded">LV2</div>
+</div>
+<div class="group relative">
+<div class="w-16 h-16 rounded-full bg-tertiary-fixed border-2 border-tertiary flex items-center justify-center text-tertiary-fixed-dim hover:scale-110 transition-transform cursor-help">
+<span class="material-symbols-outlined text-3xl" data-icon="back_hand" style="font-variation-settings: 'FILL' 1;">back_hand</span>
+</div>
+</div>
+<div class="group relative opacity-40 grayscale">
+<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-3xl" data-icon="workspace_premium">workspace_premium</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-auto font-label-sm text-primary py-2 border border-primary rounded-lg hover:bg-primary-fixed transition-colors">View All Achievements</button>
+</section>
+<!-- 3. Category Score Breakdown -->
+<section class="md:col-span-6 bg-surface border border-outline-variant rounded-xl p-card-padding flex flex-col gap-6">
+<h3 class="font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+                    Proficiency Matrix
+                </h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between items-center font-label-sm">
+<span class="text-on-surface-variant">Hand Positioning</span>
+<span class="text-primary">92%</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-primary rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center font-label-sm">
+<span class="text-on-surface-variant">Facial Expressions</span>
+<span class="text-tertiary">64%</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-tertiary rounded-full" style="width: 64%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center font-label-sm">
+<span class="text-on-surface-variant">Vocabulary Retention</span>
+<span class="text-secondary">78%</span>
+</div>
+<div class="h-3 bg-surface-container rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary rounded-full" style="width: 78%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Leaderboard Placeholder -->
+<section class="md:col-span-6 bg-surface border border-outline-variant rounded-xl p-card-padding flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="leaderboard">leaderboard</span>
+                        Top Archivists
+                    </h3>
+<span class="font-label-sm text-xs bg-surface-container px-2 py-1 rounded">Sage League</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-primary-fixed border border-primary">
+<span class="font-display-lg text-lg w-6">4</span>
+<div class="w-8 h-8 rounded-full bg-primary-container"></div>
+<span class="font-body-md flex-grow">You</span>
+<span class="font-label-sm text-primary">2,410 XP</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors">
+<span class="font-display-lg text-lg w-6 opacity-40">1</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="A clean, professional headshot of a student against a neutral studio background. The lighting is soft and high-key, aligning with a scholarly and minimalist aesthetic. The subject has a gentle, focused expression, emphasizing the calm and rewarding environment of an academic platform. The palette remains neutral with subtle warm tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBmLZ0SEnkGvJi3uK60RhibajtdWamm1HdHpn_TEqiyrikriL6YXn6dmEXZ4c6o2u1DMKgkCTHZSk8Qj5QCzRBPJo1GI2sDvXFLoHz71OKsSgVp7aEndlK2oJ_KM6a3-xSheCA3HOnwJigUx6M_kK5EJPNR4eCGQp07OYYwLAmk1wJBGGAB_Oj0df5HwP8TYoADi3DYAtn8RRF1ipI7qmApdknBeud1-O49oyt-4VMk36wyENmUlT7fhxXqRDU8isYroU0DVmedg">
+</div>
+<span class="font-body-md flex-grow">Alex P.</span>
+<span class="font-label-sm text-on-surface-variant">3,120 XP</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors">
+<span class="font-display-lg text-lg w-6 opacity-40">2</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="A high-quality, bright portrait of a female student with a kind smile, set against a soft-focus minimalist interior. The lighting is natural and airy, maintaining the brand's gentle and scholarly tone. Her clothing is a muted sage green, matching the design system's primary colors, and the overall mood is serene and encouraging." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGM0YVmDLpyXLZLoH4KJ8YxS-0bzVs839mxPcYeFMX89mUu5kFhxTW1c4l72rFjlJvpkJkHhMM33dlGaPuXO7Q6Z8S2HFw5x_bo8Je-Zvjgj90m_n7LyfEsnvwE2wJ_o7nVLmjwkxkcPKdx6sa-8mIXysal6GU-RyHVrisXfnrpt-DBTUmM4zNj8Nl0T-uyVFM4bKm_c4elDOqhKylEITZC4hBdshulwdibwe-AR-NApRk6O-p6Dg9rtMwt6ELSIzGfyuTM_UBpw">
+</div>
+<span class="font-body-md flex-grow">Sarah L.</span>
+<span class="font-label-sm text-on-surface-variant">2,980 XP</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors">
+<span class="font-display-lg text-lg w-6 opacity-40">3</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="A sharp, minimalist profile photo of a young man smiling warmly. The setting is clean with soft-shadows, creating a tactile and approachable feel. The color palette is dominated by creams and soft charcoal, consistent with the Paper Archive aesthetic. The lighting creates a clear, distinct focus on the subject's friendly expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLvXGW1ywuY63wZAe_4qHINuFLrUmfy55G6fFCwhT0H6UAM_VI8_F4eR3yGmskqFsKFEdRXg3YiqJ19NzbZ0yCcmC8r4m53EO-ih1n_dWqTJg_0qBbC5j5Wivodr8fKb0JTbjCNj00-cLuw43eufoSFG9PSOaes1QL8SqNDhVrdYn-wKLBxkqHO4hIbaSequzLF_7KjquM7edxLmY5asmWxkOzD4B6GCkSHNAmO9S-8xRc2TN4m4uqx-ZoboObnxLp2W_jUG_qCg">
+</div>
+<span class="font-body-md flex-grow">Marcus T.</span>
+<span class="font-label-sm text-on-surface-variant">2,750 XP</span>
+</div>
+</div>
+<button class="text-center font-label-sm text-on-surface-variant opacity-60 mt-2 hover:underline">See full standings</button>
+</section>
+</div>
+<!-- Mascot Tip Section -->
+<div class="mt-12 bg-secondary-container rounded-2xl border-2 border-on-surface-variant p-6 flex flex-col md:flex-row items-center gap-8 shadow-[inset_0_2px_10px_rgba(0,0,0,0.05)] relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-secondary opacity-10 text-90" data-icon="lightbulb" style="font-size: 80px;">lightbulb</span>
+</div>
+<div class="w-32 h-32 shrink-0 bg-surface rounded-full border-2 border-secondary flex items-center justify-center overflow-hidden relative">
+<img alt="Mascot" class="w-full h-full object-contain" data-alt="A soft, 3D character mascot with a matte clay-like finish in sage and muted pink tones. The character has extremely large, expressive hands posed in a gentle sign language gesture. The mascot's face is simple and scholarly, with small glasses. The background is a crisp, cream paper texture that highlights the character's tactile and physical presence in a minimalist workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRI20qrwxHa52B5keNpb-9AgdM1z4RzI5rOiLvMEEpqwIWRU8YhqZlUtGxLinDMLVIkt1DgTgzsy8pC4Jl4nlqIxvxqTO_k0lxcfKeahJ4MX9Ny5EAtYHyGYe10svRXUFhScZYotvcQjXrAyDRwTfg4IN_Od20SGvsDRodkRZuOHt2NEYULremcLWhJXENQm1HHvfqS8yGu7X-sP6Wr49252uNvIl-YbrYKFVqqSsNyRwJqrmZlJcqxfAvg6k8TVrpSrmWRJ5UBA">
+</div>
+<div class="relative z-10">
+<h4 class="font-headline-lg text-xl text-on-secondary-container mb-2">Instructor's Note</h4>
+<p class="font-body-md text-on-secondary-container opacity-80">"Your 'Thank You' sign has improved significantly this week! Focus on maintaining consistent hand distance from your chest to perfect the clarity. You're only 3 lessons away from the Conversation Module!"</p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-16 bg-surface border-t border-outline-variant shadow-lg md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-sm text-label-sm">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-sm text-label-sm">Review</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-sm text-label-sm">Streak</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Decorative Elements (Paper Clips) -->
+<div class="hidden lg:block fixed top-20 right-10 rotate-12 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-6xl text-on-surface-variant" data-icon="attach_file">attach_file</span>
+</div>
+<div class="hidden lg:block fixed bottom-20 left-72 -rotate-45 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-6xl text-on-surface-variant" data-icon="push_pin">push_pin</span>
+</div>
+<script>
+        // Micro-interaction: Scale effect on badge hover handled by Tailwind.
+        // Atmospheric effect: Subtle grain/noise over the whole page (optional script injection)
+        console.log("Archive system initialized. User progress synchronized.");
+        
+        // Example JS interaction: Clicking calendar dots to show 'XP' earned
+        document.querySelectorAll('.aspect-square').forEach(dot => {
+            dot.addEventListener('click', () => {
+                if(dot.classList.contains('bg-primary')) {
+                    dot.classList.add('ring-2', 'ring-offset-2', 'ring-primary');
+                    setTimeout(() => dot.classList.remove('ring-2', 'ring-offset-2', 'ring-primary'), 500);
+                }
+            });
+        });
+    </script>
+
+
+</body></html>
